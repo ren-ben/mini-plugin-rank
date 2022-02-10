@@ -5,3 +5,6 @@ api-version: 1.18
 authors: [ ren ]
 description: A small Ranking System plugin for Minecraft
 website: github.com/ren-ben
+commands:
+  role:
+    description: This adds a role to a Player
