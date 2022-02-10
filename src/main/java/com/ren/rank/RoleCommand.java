@@ -36,7 +36,7 @@ public class RoleCommand implements CommandExecutor {
                 //Checks if the Player is valid.
                 if(isValid) {
                     if(Arrays.asList(Main.RANKS).contains(args[1].toUpperCase())){
-                        modifyFile.set(String.valueOf(Objects.requireNonNull(Bukkit.getPlayer(args[0])).getUniqueId()), args[1]);
+                        modifyFile.set(String.valueOf(Objects.requireNonNull(Bukkit.getPlayer(args[0])).getUniqueId()), args[1].toUpperCase());
                         try {
                             modifyFile.save(main.file);
                             NametagManager.newTag(Objects.requireNonNull(Bukkit.getPlayer(args[0])), main);

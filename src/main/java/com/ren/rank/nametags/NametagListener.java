@@ -1,6 +1,7 @@
 package com.ren.rank.nametags;
 
 import com.ren.rank.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class NametagListener implements Listener {
@@ -24,6 +26,15 @@ public class NametagListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         NametagManager.setNametags(e.getPlayer());
+        YamlConfiguration modifyFile = YamlConfiguration.loadConfiguration(main.file);
+        if(!modifyFile.contains(String.valueOf(e.getPlayer().getUniqueId()))) {
+            modifyFile.set(String.valueOf(e.getPlayer().getUniqueId()), "NEWCOMER");
+            try {
+                modifyFile.save(main.file);
+                NametagManager.newTag(e.getPlayer(), main);
+                return;
+            } catch (IOException ignore) {return;}
+        }
         NametagManager.newTag(e.getPlayer(), main);
     }
 
