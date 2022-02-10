@@ -1,6 +1,6 @@
 package com.ren.rank;
 
-import org.apache.commons.lang.StringUtils;
+import com.ren.rank.nametags.NametagManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,12 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.StringUtil;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -41,6 +36,7 @@ public class RoleCommand implements CommandExecutor {
                         modifyFile.set(String.valueOf(Objects.requireNonNull(Bukkit.getPlayer(args[0])).getUniqueId()), args[1]);
                         try {
                             modifyFile.save(main.file);
+                            NametagManager.newTag(Objects.requireNonNull(Bukkit.getPlayer(args[0])), main);
                             player.sendMessage(ChatColor.GREEN + "Successfully added the role!");
                         } catch (IOException e) {
                             e.printStackTrace();
