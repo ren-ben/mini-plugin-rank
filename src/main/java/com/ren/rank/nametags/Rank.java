@@ -9,6 +9,7 @@ public enum Rank {
     BUILDER("§b§l[BUILDER] ", 'd'),
     NEWCOMER("§7§l[NEWCOMER] ", 'e');
 
+    //Variables
     String display;
     char orderSymbol;
 

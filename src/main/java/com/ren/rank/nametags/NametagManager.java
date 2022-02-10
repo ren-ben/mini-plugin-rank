@@ -10,6 +10,8 @@ import org.bukkit.scoreboard.Team;
 import java.util.Objects;
 
 public class NametagManager {
+
+    //Initializes everything, should only run on onJoin
     public static void setNametags(Player player) {
         player.setScoreboard(Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard());
 
@@ -19,35 +21,34 @@ public class NametagManager {
         }
     }
 
+    //Make / Change the Rank Tag
     public static void newTag(Player player, Main main) {
-        Rank rank;
+        Rank rank = getRank(player, main);
+
+        for(Player target : Bukkit.getOnlinePlayers())
+            Objects.requireNonNull(target.getScoreboard().getTeam(rank.getOrderSymbol() + rank.name())).addEntry(player.getName());
+    }
+
+    //remove player from all scoreboards
+    public static void removeTag(Player player) {
+        for(Player target : Bukkit.getOnlinePlayers())
+            Objects.requireNonNull(target.getScoreboard().getEntryTeam(player.getName())).removeEntry(player.getName());
+    }
+
+    //Gets the Rank of the player with the color code formatting
+    public static Rank getRank(Player player, Main main) {
         YamlConfiguration readFile = YamlConfiguration.loadConfiguration(main.file);
         switch((String) Objects.requireNonNull(readFile.get(String.valueOf(player.getUniqueId())))) {
             case "OWNER":
-                rank = Rank.OWNER;
-                break;
+                return Rank.OWNER;
             case "ADMIN":
-                rank = Rank.ADMIN;
-                break;
+                return Rank.ADMIN;
             case "HELPER":
-                rank = Rank.HELPER;
-                break;
+                return Rank.HELPER;
             case "BUILDER":
-                rank = Rank.BUILDER;
-                break;
+                return Rank.BUILDER;
             default:
-                rank = Rank.NEWCOMER;
-                break;
-        }
-
-        for(Player target : Bukkit.getOnlinePlayers()) {
-            Objects.requireNonNull(target.getScoreboard().getTeam(rank.getOrderSymbol() + rank.name())).addEntry(player.getName());
-        }
-    }
-
-    public static void removeTag(Player player) { //remove player from all scoreboards
-        for(Player target : Bukkit.getOnlinePlayers()) {
-            Objects.requireNonNull(target.getScoreboard().getEntryTeam(player.getName())).removeEntry(player.getName());
+                return Rank.NEWCOMER;
         }
     }
 }

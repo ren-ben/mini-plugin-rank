@@ -15,43 +15,29 @@ public class NametagListener implements Listener {
 
     Main main;
 
+    //Constructor
     public NametagListener(Main main) {
         this.main = main;
     }
 
+    //Set-up for the Player Ranks when joining
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         NametagManager.setNametags(e.getPlayer());
         NametagManager.newTag(e.getPlayer(), main);
     }
 
+    //Remove the Player Tag on Quit
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         NametagManager.removeTag(e.getPlayer());
     }
 
+    //Player Prefix in Chat
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
         String message = e.getMessage();
-        Rank rank;
-        YamlConfiguration readFile = YamlConfiguration.loadConfiguration(main.file);
-        switch((String) Objects.requireNonNull(readFile.get(String.valueOf(e.getPlayer().getUniqueId())))) {
-            case "OWNER":
-                rank = Rank.OWNER;
-                break;
-            case "ADMIN":
-                rank = Rank.ADMIN;
-                break;
-            case "HELPER":
-                rank = Rank.HELPER;
-                break;
-            case "BUILDER":
-                rank = Rank.BUILDER;
-                break;
-            default:
-                rank = Rank.NEWCOMER;
-                break;
-        }
-        e.setFormat(ChatColor.translateAlternateColorCodes('&', rank.display + "§r" + e.getPlayer().getName() + ": " + message));
+        Rank rank = NametagManager.getRank(e.getPlayer(), main);
+        e.setFormat(ChatColor.translateAlternateColorCodes('&', rank.display + "§r§l" + e.getPlayer().getName() + ": §r" + message));
     }
 }

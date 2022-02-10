@@ -24,13 +24,16 @@ public class RoleCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player) {
             Player player = (Player) sender;
+
+            //The command is executed when the number of arguments is 2.
             if(args.length == 2) {
                 YamlConfiguration modifyFile = YamlConfiguration.loadConfiguration(main.file);
                 boolean isValid = false;
-                for (Player target : Bukkit.getOnlinePlayers()) {
-                    if(target.getName().equalsIgnoreCase(args[0])) {isValid = true;}
-                }
 
+                for (Player target : Bukkit.getOnlinePlayers())
+                    if(target.getName().equalsIgnoreCase(args[0])) isValid = true;
+
+                //Checks if the Player is valid.
                 if(isValid) {
                     if(Arrays.asList(Main.RANKS).contains(args[1].toUpperCase())){
                         modifyFile.set(String.valueOf(Objects.requireNonNull(Bukkit.getPlayer(args[0])).getUniqueId()), args[1]);
@@ -38,15 +41,10 @@ public class RoleCommand implements CommandExecutor {
                             modifyFile.save(main.file);
                             NametagManager.newTag(Objects.requireNonNull(Bukkit.getPlayer(args[0])), main);
                             player.sendMessage(ChatColor.GREEN + "Successfully added the role!");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        player.sendMessage(ChatColor.RED + "Couldn't find the role!");
-                    }
-                } else {
-                    player.sendMessage(ChatColor.RED + "Couldn't find the Player!");
-                }
+                        } catch (IOException ignore) {}
+
+                    } else player.sendMessage(ChatColor.RED + "Couldn't find the role!");
+                } else player.sendMessage(ChatColor.RED + "Couldn't find the Player!");
             }
         }
         return false;
