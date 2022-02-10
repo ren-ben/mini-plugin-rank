@@ -1,0 +1,7 @@
+name: ProjectRank
+version: '${project.version}'
+main: com.ren.rank.Main
+api-version: 1.18
+authors: [ ren ]
+description: A small Ranking System plugin for Minecraft
+website: github.com/ren-ben
