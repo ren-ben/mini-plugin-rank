@@ -16,15 +16,15 @@ import java.util.Objects;
 
 public class PermissonsManager implements Listener {
 
-    public static final String[] ADMIN_BLOCKS = {"/summon", "/kill", "/ban", "/ban-ip"};
+    public static final String[] ADMIN_BLOCKS = {"/summon", "/kill", "/ban", "/ban-ip", "/role"};
 
     public static final String[] HELPER_BLOCKS = {"/summon", "/kill", "/ban", "/gamemode", "/kick", "/gamerule", "/bossbar", "/changesettings", "/clearspawnpoint",
-            "/give", "/stop", "/op", "/clear", "/deop", "/clone"};
+            "/give", "/stop", "/op", "/clear", "/deop", "/clone", "/role"};
 
     public static final String[] BUILDER_BLOCKS = {"/summon", "/kill", "/ban", "/gamemode", "/kick", "/gamerule", "/bossbar", "/changesettings",
-            "/clearspawnpoint", "/kick", "/xp", "/weather", "/time", "/stop", "/setworldspawn", "/scoreboard", "/op", "/clear", "/deop", "/clone"};
+            "/clearspawnpoint", "/kick", "/xp", "/weather", "/time", "/stop", "/setworldspawn", "/scoreboard", "/op", "/clear", "/deop", "/clone", "/role"};
 
-    public static final String[] NEWCOMER_ALLOWS = {"/msg", "/?", "/help", "/say", "/tell", "/w", "/role"};
+    public static final String[] NEWCOMER_ALLOWS = {"/msg", "/?", "/help", "/say", "/tell", "/w"};
 
     Main main;
 
