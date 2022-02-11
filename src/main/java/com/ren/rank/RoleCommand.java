@@ -33,16 +33,17 @@ public class RoleCommand implements CommandExecutor {
                 for (Player target : Bukkit.getOnlinePlayers())
                     if(target.getName().equalsIgnoreCase(args[0])) isValid = true;
 
-                //Checks if the Player is valid.
+                //Checks if arguments are correct
                 if(isValid) {
                     if(Arrays.asList(Main.RANKS).contains(args[1].toUpperCase())){
+                        //Save the parameters in the .yml File
                         modifyFile.set(String.valueOf(Objects.requireNonNull(Bukkit.getPlayer(args[0])).getUniqueId()), args[1].toUpperCase());
                         try {
                             modifyFile.save(main.file);
                             NametagManager.newTag(Objects.requireNonNull(Bukkit.getPlayer(args[0])), main);
                             player.sendMessage(ChatColor.GREEN + "Successfully added the role!");
                         } catch (IOException ignore) {}
-
+                // This fires when you either have the wrong Role or the wrong Player
                     } else player.sendMessage(ChatColor.RED + "Couldn't find the role!");
                 } else player.sendMessage(ChatColor.RED + "Couldn't find the Player!");
             }
