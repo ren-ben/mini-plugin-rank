@@ -49,7 +49,6 @@ public class RoleCommand implements CommandExecutor {
                 } else player.sendMessage(ChatColor.RED + "Couldn't find the Player!");
             }
 
-
         //Same thing but for the Console
         } else {
             if (args.length == 2) {
